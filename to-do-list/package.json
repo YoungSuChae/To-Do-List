@@ -3,10 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
-    "@chakra-ui/react": "^2.8.2",
-    "axios": "^1.6.2",
-=======
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -14,7 +10,6 @@
     "express": "^4.18.2",
     "mysql": "^2.18.1",
     "nodemon": "^3.0.2",
->>>>>>> 7cbc8495ffee7bb56e8b05dd80cd246458284d8b
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.2",
