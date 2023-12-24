@@ -1,9 +1,11 @@
 import "./LoginPageStyle.css";
 import "./LoginPage.css";
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import { SocialIcon } from "react-social-icons";
+import { useNavigate } from 'react-router-dom'
 import styled from "styled-components";
+import axios from 'axios'; 
 
 const Button = styled.button`
   background-color: #00cc99;
@@ -23,6 +25,32 @@ const Button = styled.button`
 `;
 
 function LoginPage() {
+
+  const [values, setValues] = useState({
+    username:'',
+    password:''
+  })
+
+  const navigate = useNavigate();
+  const handleInput = (event) => {
+    setValues(prev => ({...prev, [event.target.name]: event.target.value}))
+
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.get(`http://localhost:8080/?username=${values.username}&password=${values.password}`);
+      if (response.data === "Invalid credentials or user not found") {
+        console.log("Invalid credentials or user not found");
+      } else {
+        navigate('/main');
+      }
+    } catch (error) {
+      console.error('Error occurred:', error);
+    }
+  };
+
   return (
     <React.StrictMode>
       <div>
@@ -54,25 +82,30 @@ function LoginPage() {
           <p className="sign" align="center">
             Sign in
           </p>
-          <form className="form1" />
+          <form className="form1" onSubmit={handleSubmit}>
           <input
             className="input"
             type="text"
             align="center"
             placeholder="Username"
+            name="username"
+            onChange={handleInput}
           />
           <input
             className="input"
             type="password"
             align="center"
             placeholder="Password"
+            name="password"
+            onChange={handleInput}
           />
-          <Button className="submit" style={{ marginLeft: "305px" }}>
+          <Button className="submit" style={{ marginLeft: "305px" }} type='submit'>
             LogIn
           </Button>
+          </form>
 
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <Link to="./Registration">
+            <Link to="./main">
               <p class="forgot" style={{ marginRight: "10px" }}>
                 New User?
               </p>
@@ -83,7 +116,7 @@ function LoginPage() {
           </div>
         </div>
         <div className="footer">
-          <h2>Follow Us on</h2>
+          <h2>Follow Us On</h2>
           <div className="social_media_app">
             <SocialIcon
               url="https://twitter.com/"
