@@ -110,7 +110,7 @@ function LoginPage() {
                 New User?
               </p>
             </Link>
-            <Link to="./ForgotPassword">
+            <Link to="./forgotPassword">
               <p class="forgot"> Forgot Password?</p>
             </Link>
           </div>
@@ -141,4 +141,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default LandingPage;
