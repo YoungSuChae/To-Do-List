@@ -1,5 +1,5 @@
-import "./LoginPageStyle.css";
-import "./LoginPage.css";
+import "./PageStyle.css";
+import "./LoginSection.css";
 import React from "react";
 import { Link } from "react-router-dom";
 import { SocialIcon } from "react-social-icons";
@@ -22,7 +22,7 @@ const Button = styled.button`
   }
 `;
 
-function LoginPage() {
+function LandingPage() {
   return (
     <React.StrictMode>
       <div>
@@ -77,7 +77,7 @@ function LoginPage() {
                 New User?
               </p>
             </Link>
-            <Link to="./ForgotPassword">
+            <Link to="./forgotPassword">
               <p class="forgot"> Forgot Password?</p>
             </Link>
           </div>
@@ -108,4 +108,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default LandingPage;

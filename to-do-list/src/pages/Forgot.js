@@ -1,7 +1,6 @@
 import React from "react";
-import "./Forgot.css";
 
-function Forgot() {
+function forgotPassword() {
   return (
     <React.StrictMode>
       <div className="header">
@@ -11,4 +10,4 @@ function Forgot() {
   );
 }
 
-export default Forgot;
+export default forgotPassword;
