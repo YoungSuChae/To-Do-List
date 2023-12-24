@@ -1,11 +1,15 @@
-import "./LoginPageStyle.css";
-import "./LoginPage.css";
+import "./startScreenStyle.css";
+import "./LoginStyle.css";
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import { SocialIcon } from "react-social-icons";
 import { useNavigate } from 'react-router-dom'
 import styled from "styled-components";
 import axios from 'axios'; 
+
+//stop renaming files this causes conflicts that have be resolved and its changes where the
+//modules are this is going to very hard to deal with as so please add
+//pages but do not rename please I beg you 
 
 const Button = styled.button`
   background-color: #00cc99;
@@ -24,7 +28,7 @@ const Button = styled.button`
   }
 `;
 
-function LoginPage() {
+function StartScreen() {
 
   const [values, setValues] = useState({
     username:'',
@@ -141,4 +145,4 @@ function LoginPage() {
   );
 }
 
-export default LandingPage;
+export default StartScreen;
