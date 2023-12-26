@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/header';
 import "./mainPageStyle.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BiTrash, BiCheck } from 'react-icons/bi';
 import { Button } from 'bootstrap';
-
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 
 const MainPage = () => {
+
+    const [value, onChange] = useState(new Date());
+
    return (
     <React.StrictMode>
    <Header title='Plan Your Day'></Header>
@@ -52,10 +56,10 @@ const MainPage = () => {
                 </div>
             </li>
         </ul>
-     </div>
-     <div className='calender-container'>
-        {/** calender might go here will need to see calender widgets are there*/}
-     </div>
+    </div>
+    <div className='calender-container'>
+        <Calendar onChange={onChange} value={value} />
+    </div>
    </React.StrictMode>
    )
 }

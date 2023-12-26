@@ -8,6 +8,8 @@ const StyledHeader = styled.header`
   background: #1abc9c;
   color: white;
   font-size: 30px;
+  padding-bottom: 20px;
+  padding-top: 20px;
 `;
 
 

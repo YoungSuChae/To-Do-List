@@ -2,10 +2,11 @@ import "./startScreenStyle.css";
 import "./LoginStyle.css";
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
-import { SocialIcon } from "react-social-icons";
 import { useNavigate } from 'react-router-dom'
 import styled from "styled-components";
 import axios from 'axios'; 
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 //stop renaming files this causes conflicts that have be resolved and its changes where the
 //modules are this is going to very hard to deal with as so please add
@@ -58,9 +59,7 @@ function StartScreen() {
   return (
     <React.StrictMode>
       <div>
-        <div className="header">
-          <h1>Welcome to Taskers</h1>
-        </div>
+      <Header title='Welcome to Taskers'></Header>
         <div className="container">
           <div className="gradient-border">
             <h2>Easy to use</h2>
@@ -119,27 +118,7 @@ function StartScreen() {
             </Link>
           </div>
         </div>
-        <div className="footer">
-          <h2>Follow Us On</h2>
-          <div className="social_media_app">
-            <SocialIcon
-              url="https://twitter.com/"
-              style={{ marginRight: "10px" }}
-            />
-            <SocialIcon
-              url="https://facebook.com/"
-              style={{ marginRight: "10px" }}
-            />
-            <SocialIcon
-              url="https://instagram.com/"
-              style={{ marginRight: "10px" }}
-            />
-            <SocialIcon
-              url="https://github.com/"
-              style={{ marginRight: "10px" }}
-            />
-          </div>
-        </div>
+        <Footer title='Follow us on'></Footer>
       </div>
     </React.StrictMode>
   );

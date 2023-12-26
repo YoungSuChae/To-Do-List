@@ -9,6 +9,7 @@ const StyledFooter = styled.footer`
     background: #1abc9c;
     color: white;
     padding-bottom: 20px;
+    padding-top: 20px;
 `;
 
 
