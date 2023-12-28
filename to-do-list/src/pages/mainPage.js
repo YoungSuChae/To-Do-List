@@ -22,6 +22,7 @@ const MainPage = () => {
           clear: "left",
           marginBottom: "25px",
           marginTop: "10px",
+          paddingLeft: "10px",
         }}
       >
         <h1>Today's Tasks</h1>
@@ -49,25 +50,48 @@ const MainPage = () => {
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Add Task</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Email address</Form.Label>
+            <Form.Group className="mb-3" controlId="task-title">
+              <Form.Label>Task Title</Form.Label>
               <Form.Control
-                type="email"
-                placeholder="name@example.com"
+                type="text"
+                placeholder="Learn Javascript"
                 autoFocus
               />
             </Form.Group>
             <Form.Group
               className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
+              controlId="task-desc"
             >
-              <Form.Label>Example textarea</Form.Label>
-              <Form.Control as="textarea" rows={3} />
+              <Form.Label>Task Description</Form.Label>
+              <Form.Control as="textarea" placeholder="Do your homework" rows={3} />
             </Form.Group>
+              <Form.Group 
+                className="mb-3"
+                controlId="owner"
+                >
+                  <Form.Label>Owner</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="owner"
+                    rows={1}
+                    />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="task-date">
+                  <Form.Label>Date</Form.Label>
+                  <Form.Control
+                    type="date"
+                    />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="task-priority">
+                <Form.Label>Priority<p> 1 - 5 (1 being highest)</p></Form.Label>
+                <Form.Control
+                    type="number"
+                    />
+              </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -87,6 +111,7 @@ const MainPage = () => {
           clear: "left",
           marginBottom: "25px",
           marginTop: "10px",
+          paddingLeft: "10px",
         }}
       >
         <h1>This Weeks Tasks</h1>
