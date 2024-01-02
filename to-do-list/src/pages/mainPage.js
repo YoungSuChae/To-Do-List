@@ -90,7 +90,9 @@ const MainPage = () => {
     return colour; // Return the computed colour
   };
 
-  
+  //will need to have a date function that can differentiate between
+  //todays date and future dates 
+
 
   return (
     <React.StrictMode>
