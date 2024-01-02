@@ -28,7 +28,6 @@ ul.tasks li {
     padding: 10px 10px;
     margin-bottom: 15px;
     width: 90vw;
-    background-color: #8AD4F1;
     position: relative; 
     display: flex;
     align-items: center;
@@ -36,7 +35,7 @@ ul.tasks li {
     font-size: 20px;
   }
 
-  .tasks li .icon-wrapper {
+  /* .tasks li .icon-wrapper {
     display: flex;
     align-items: center;
   }
@@ -51,4 +50,4 @@ ul.tasks li {
   .tasks li:hover .check,
   .tasks li:hover .trash {
     display: inline-block;
-  }
+  } */

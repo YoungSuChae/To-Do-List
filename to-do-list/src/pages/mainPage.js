@@ -6,12 +6,91 @@ import { BiTrash, BiCheck } from "react-icons/bi";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import axios from 'axios'; 
 
 const MainPage = () => {
-  const [show, setShow] = useState(false);
 
+  const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  // gettting values from inputs fields
+  const [values, setValues] = useState({
+    taskTitle:'',
+    taskDescription:'',
+    taskDate:'',
+    priority:''
+  })
+
+  const [tasks, setTasks] = useState([]);
+
+  const handleInput = (event) => {
+    setValues(prev => ({...prev, [event.target.name]: event.target.value}))
+
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
+    try {
+      const response = await axios.post('http://localhost:8080/main', {
+        taskTitle: values.taskTitle,
+        taskDate: values.taskDate,
+        taskDescription: values.taskDescription,
+        priority: values.priority
+      });
+      
+      //error handling
+      if (response.data === 'Error') {
+        console.log('Error occurred while creating task');
+      } else if (response.data === 'Unable to create task per request') {
+        console.log('Unable to create task per request');
+      } else {
+        handleClose();
+      }
+    } catch (error) {
+      console.error('Error occurred:', error);
+    }
+
+    const newTask = {
+      taskTitle: values.taskTitle,
+      taskDescription: values.taskDescription,
+      taskDate: values.taskDate,
+      priority: values.priority
+    };
+
+    setTasks([...tasks, newTask]);
+    setValues({
+      taskTitle:'',
+      taskDescription:'',
+      taskDate:'',
+      priority:''
+    }); // Clear the input fields after adding a task
+    handleClose();
+
+  };
+
+  // priority color coordination
+  const priorityManager = (priorityValue) => {
+    let colour = ''; // Declare colour variable
+    console.log('Priority Value:', priorityValue);
+
+    if (priorityValue === '1') {
+      colour = "#f08080"; // light blue 
+    } else if (priorityValue === '2') {
+      colour = "#ff7f50"; // slightly orange
+    } else if (priorityValue === '3') {
+      colour = "#fafad2"; // light yellow
+    } else if (priorityValue === '4') {
+      colour = "#9ab973"; // olive green
+    } else if (priorityValue === '5') {
+      colour = "#add8e6"; // light blue
+    }
+    console.log('Colour:', colour);
+    return colour; // Return the computed colour
+  };
+
+  
 
   return (
     <React.StrictMode>
@@ -28,21 +107,15 @@ const MainPage = () => {
         <h1>Today's Tasks</h1>
       </div>
       <div className="d-flex flex-column">
-        <ul className="tasks">
-          <li>
-            Task 1: Description, Name, Date, Priority
-            <div className="icone-wrapper">
-              <BiCheck className="check"></BiCheck>
-              <BiTrash className="trash"></BiTrash>
-            </div>
-          </li>
-          <li style={{ backgroundColor: "lightcoral" }}>
-            Task 2: Description, Name, Date, Priority
-            <div className="icone-wrapper">
-              <BiCheck className="check"></BiCheck>
-              <BiTrash className="trash"></BiTrash>
-            </div>
-          </li>
+      <ul className="tasks">
+          {tasks.map((task, index) => (
+            <li
+              key={index}
+              style={{ backgroundColor: priorityManager(task.priority) }}
+            >
+              {task.taskTitle}: {task.taskDescription}, {task.taskDate}
+            </li>
+          ))}
         </ul>
         <button className="add-task" onClick={handleShow}>
           Add Task
@@ -59,7 +132,9 @@ const MainPage = () => {
               <Form.Control
                 type="text"
                 placeholder="Learn Javascript"
-                autoFocus
+                name="taskTitle"
+                value={values.taskTitle}
+                onChange={handleInput}
               />
             </Form.Group>
             <Form.Group
@@ -67,29 +142,31 @@ const MainPage = () => {
               controlId="task-desc"
             >
               <Form.Label>Task Description</Form.Label>
-              <Form.Control as="textarea" placeholder="Do your homework" rows={3} />
+              <Form.Control 
+                as="textarea" 
+                placeholder="Do your homework" 
+                rows={3}
+                value={values.taskDescription}
+                name="taskDescription"
+                onChange={handleInput}
+              />
             </Form.Group>
-              <Form.Group 
-                className="mb-3"
-                controlId="owner"
-                >
-                  <Form.Label>Owner</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="owner"
-                    rows={1}
-                    />
-              </Form.Group>
               <Form.Group className="mb-3" controlId="task-date">
                   <Form.Label>Date</Form.Label>
                   <Form.Control
                     type="date"
+                    name="taskDate"
+                    value={values.taskDate}
+                    onChange={handleInput}
                     />
               </Form.Group>
               <Form.Group className="mb-3" controlId="task-priority">
                 <Form.Label>Priority<p> 1 - 5 (1 being highest)</p></Form.Label>
                 <Form.Control
                     type="number"
+                    name="priority"
+                    value={values.priority}
+                    onChange={handleInput}
                     />
               </Form.Group>
           </Form>
@@ -98,7 +175,7 @@ const MainPage = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleSubmit}>
             Save Changes
           </Button>
         </Modal.Footer>

@@ -23,7 +23,7 @@ db.connect((err) => {
 
 app.get('/', (req, res) => {
 
-    console.log('Received a POST request at /');
+    console.log('Received a GET request at /');
     const sql = "SELECT * FROM users WHERE username = ? AND user_password = ?";
     const values = [
         req.query.username,
@@ -45,6 +45,32 @@ app.get('/', (req, res) => {
         return res.json(data[0]); // Assuming only one user should match these credentials
     });
 });
+
+app.post('/main', (req, res) => {
+    console.log('Received a POST request at /main');
+    const sql = "INSERT INTO tasks VALUES (NULL, 1, ?, ?, ?, ?)"; // primary key will auto increment
+  
+    const values = [
+      req.body.taskTitle,
+      req.body.taskDate,
+      req.body.taskDescription,
+      req.body.priority
+    ];
+  
+    db.query(sql, values, (err, data) => {
+      if (err) {
+        return res.json("Error");
+      }
+  
+      if (data.length === 0) {
+        return res.json("Unable to create task per request");
+      }
+  
+      console.log("Task created:", data[0]);
+  
+      return res.json(data[0]);
+    });
+  });
 
 const PORT = 8080;
 app.listen(PORT, () => {
