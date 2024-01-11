@@ -2,11 +2,12 @@ import "./startScreenStyle.css";
 import "./LoginStyle.css";
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import axios from 'axios'; 
 import Header from "../components/header";
 import Footer from "../components/footer";
+import Alert from 'react-bootstrap/Alert';
 
 //stop renaming files this causes conflicts that have be resolved and its changes where the
 //modules are this is going to very hard to deal with as so please add
@@ -42,12 +43,15 @@ function StartScreen() {
 
   }
 
-  const handleSubmit = async (event) => {
+const [showAlert, setShowAlert] = useState(false);
+
+const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.get(`http://localhost:8080/?username=${values.username}&password=${values.password}`);
       if (response.data === "Invalid credentials or user not found") {
-        console.log("Invalid credentials or user not found");
+        //console.log("Invalid credentials or user not found");
+        setShowAlert(true);
       } else {
         navigate('/main');
       }
@@ -102,9 +106,14 @@ function StartScreen() {
             name="password"
             onChange={handleInput}
           />
-          <Button className="submit" style={{ marginLeft: "305px" }} type='submit'>
-            LogIn
-          </Button>
+            <Button className="submit" style={{ marginLeft: "305px" }} type='submit'>
+              LogIn
+            </Button>
+            {showAlert && (
+              <Alert variant="warning">
+                Incorrect username or password entered
+              </Alert>
+            )}
           </form>
 
           <div style={{ display: "flex", justifyContent: "center" }}>

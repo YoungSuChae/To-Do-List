@@ -31,15 +31,19 @@ const MainPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    console.log('Pressed submiute button');
   
     try {
       const response = await axios.post('http://localhost:8080/main', {
+        // userID: 2,
         taskTitle: values.taskTitle,
         taskDate: values.taskDate,
         taskDescription: values.taskDescription,
         priority: values.priority
       });
       
+      console.log('Server Response:', response.data);
       //error handling
       if (response.data === 'Error') {
         console.log('Error occurred while creating task');
@@ -73,7 +77,6 @@ const MainPage = () => {
   // priority color coordination
   const priorityManager = (priorityValue) => {
     let colour = ''; // Declare colour variable
-    console.log('Priority Value:', priorityValue);
 
     if (priorityValue === '1') {
       colour = "#f08080"; // light blue 
@@ -86,7 +89,7 @@ const MainPage = () => {
     } else if (priorityValue === '5') {
       colour = "#add8e6"; // light blue
     }
-    console.log('Colour:', colour);
+
     return colour; // Return the computed colour
   };
 
