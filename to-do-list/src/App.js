@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import StartScreen from "./pages/StartScreen";
 import ForgotPassword from "./pages/Forgot";
 import MainPage from "./pages/mainPage";
+import Registration from "./pages/Registration";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<StartScreen />} />
+          <Route exact path="/registration" element={<Registration />} />
           <Route exact path="/forgotPassword" element={<ForgotPassword />} />
           <Route exact path="/main" element={<MainPage />} />
         </Routes>

@@ -1,17 +1,17 @@
 import "./startScreenStyle.css";
 import "./LoginStyle.css";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from 'axios'; 
+import axios from "axios";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import Alert from 'react-bootstrap/Alert';
+import Alert from "react-bootstrap/Alert";
 
 //stop renaming files this causes conflicts that have be resolved and its changes where the
 //modules are this is going to very hard to deal with as so please add
-//pages but do not rename please I beg you 
+//pages but do not rename please I beg you
 
 const Button = styled.button`
   background-color: #00cc99;
@@ -31,39 +31,39 @@ const Button = styled.button`
 `;
 
 function StartScreen() {
-
   const [values, setValues] = useState({
-    username:'',
-    password:''
-  })
+    username: "",
+    password: "",
+  });
 
   const navigate = useNavigate();
   const handleInput = (event) => {
-    setValues(prev => ({...prev, [event.target.name]: event.target.value}))
+    setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+  };
 
-  }
+  const [showAlert, setShowAlert] = useState(false);
 
-const [showAlert, setShowAlert] = useState(false);
-
-const handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:8080/?username=${values.username}&password=${values.password}`);
+      const response = await axios.get(
+        `http://localhost:8080/?username=${values.username}&password=${values.password}`
+      );
       if (response.data === "Invalid credentials or user not found") {
         //console.log("Invalid credentials or user not found");
         setShowAlert(true);
       } else {
-        navigate('/main');
+        navigate("/main");
       }
     } catch (error) {
-      console.error('Error occurred:', error);
+      console.error("Error occurred:", error);
     }
   };
 
   return (
     <React.StrictMode>
       <div>
-      <Header title='Welcome to Taskers'></Header>
+        <Header title="Welcome to Taskers"></Header>
         <div className="container">
           <div className="gradient-border">
             <h2>Easy to use</h2>
@@ -90,23 +90,27 @@ const handleSubmit = async (event) => {
             Sign in
           </p>
           <form className="form1" onSubmit={handleSubmit}>
-          <input
-            className="input"
-            type="text"
-            align="center"
-            placeholder="Username"
-            name="username"
-            onChange={handleInput}
-          />
-          <input
-            className="input"
-            type="password"
-            align="center"
-            placeholder="Password"
-            name="password"
-            onChange={handleInput}
-          />
-            <Button className="submit" style={{ marginLeft: "305px" }} type='submit'>
+            <input
+              className="input"
+              type="text"
+              align="center"
+              placeholder="Username"
+              name="username"
+              onChange={handleInput}
+            />
+            <input
+              className="input"
+              type="password"
+              align="center"
+              placeholder="Password"
+              name="password"
+              onChange={handleInput}
+            />
+            <Button
+              className="submit"
+              style={{ marginLeft: "305px" }}
+              type="submit"
+            >
               LogIn
             </Button>
             {showAlert && (
@@ -117,8 +121,8 @@ const handleSubmit = async (event) => {
           </form>
 
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <Link to="./main">
-              <p class="forgot" style={{ marginRight: "10px" }}>
+            <Link to="./registration">
+              <p class="registration" style={{ marginRight: "10px" }}>
                 New User?
               </p>
             </Link>
@@ -127,7 +131,7 @@ const handleSubmit = async (event) => {
             </Link>
           </div>
         </div>
-        <Footer title='Follow us on'></Footer>
+        <Footer title="Follow us on"></Footer>
       </div>
     </React.StrictMode>
   );
