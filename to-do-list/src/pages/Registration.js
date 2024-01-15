@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import "./RegistrationStyle.css";
 
@@ -21,6 +21,40 @@ const Button = styled.button`
 `;
 
 function Registration() {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+    try {
+      const response = await fetch("http://localhost:8080/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      console.log(data);
+      // handle successful registration here
+    } catch (error) {
+      console.error("Error occurred:", error);
+      // handle error here
+    }
+  };
+
   return (
     <React.StrictMode>
       <div>
@@ -33,23 +67,51 @@ function Registration() {
             <div className="underline"></div>
           </div>
 
-          <form className="form1" />
-          <input className="input" type="text" placeholder="Username" />
-          <input className="input" type="email" placeholder="Email" />
-          {/* ^ do you think we rly need an email section? */}
-
-          <input className="input" type="password" placeholder="Password" />
-          <input
-            className="input"
-            type="password"
-            placeholder="Password Confirm"
-          />
-          <Button className="submit" style={{ marginLeft: "200px" }}>
-            Sign In
-          </Button>
+          <form className="form1" onSubmit={handleSubmit}>
+            <input
+              className="input"
+              type="text"
+              placeholder="Username"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+            />
+            <input
+              className="input"
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <input
+              className="input"
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <input
+              className="input"
+              type="password"
+              placeholder="Password Confirm"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+            />
+            <Button
+              className="submit"
+              style={{ marginLeft: "200px" }}
+              type="submit"
+            >
+              Sign In
+            </Button>
+          </form>
         </div>
       </div>
     </React.StrictMode>
   );
 }
+
 export default Registration;

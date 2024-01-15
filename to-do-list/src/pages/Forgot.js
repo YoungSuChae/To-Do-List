@@ -1,4 +1,5 @@
 import React from "react";
+import "./RegistrationStyle.css";
 
 function forgotPassword() {
   return (
